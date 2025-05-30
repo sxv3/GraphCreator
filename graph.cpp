@@ -43,7 +43,7 @@ int graph::getIndex(const char* name) {
 }
 
 void graph::addVertex(const char* name) {
-  if (getIndex(lab) != -1) {
+  if (getIndex(name) != -1) {
     cout << "vertex exists" << endl;
     return;
   }
@@ -53,7 +53,7 @@ void graph::addVertex(const char* name) {
     return;
   }
     
-  node* newNode = new node(lab);
+  node* newNode = new node(name);
   nodes.push_back(newNode);
 }
 
