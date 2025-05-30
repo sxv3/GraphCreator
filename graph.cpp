@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstring>
 
+using namespace std;
+
 node::node(const char* name) {
   strncpy(label, name, 19);
   label[19] = '\0';
@@ -34,8 +36,23 @@ int graph::getIndex(const char* name) {
   for (int i = 0; i < nodes.size(); i++) {
     if (strcmp(nodes[i]->label, name) == 0) {
       return i;
-      }
+    }
   }
   
   return -1;
+}
+
+void graph::addVertex(const char* name) {
+  if (getIndex(lab) != -1) {
+    cout << "vertex exists" << endl;
+    return;
+  }
+  
+  if (nodes.size() >= 20) {
+    std::cout << "max vertice limit rearched";
+    return;
+  }
+    
+  node* newNode = new node(lab);
+  nodes.push_back(newNode);
 }
