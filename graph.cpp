@@ -131,7 +131,7 @@ void graph::addEdge(const char* from, const char* to, int weight) {
     current = current->next;
   }
 
-  edge* newEdge = new edge(tIndex, weight, nodes[fIndex]->head);
+  edge* newEdge = new edge{tIndex, weight, nodes[fIndex]->head};
   nodes[fIndex]->head = newEdge;
 }
 
