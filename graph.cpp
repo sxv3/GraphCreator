@@ -22,10 +22,20 @@ node::~node() {
 }
 
 graph::~graph() {
-  
   for (int i = 0; i < nodes.size(); i++) {
     nodes[i] = NULL;    
     delete nodes[i];
   }
+  
   nodes.clear();
+}
+
+int graph::getIndex(const char* name) {
+  for (int i = 0; i < nodes.size(); i++) {
+    if (strcmp(nodes[i]->label, name) == 0) {
+      return i;
+      }
+  }
+  
+  return -1;
 }
