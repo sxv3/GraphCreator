@@ -4,12 +4,17 @@
 #include <vector>
 using namespace std;
 
+//graph header file
+//by Tai Wong, 5/29/25
+
+//edge struct
 struct edge {
   int toIndex;
   int weight;
   edge* next;
 };
 
+//node struct
 struct node {
   char label[20];
   edge* head;
@@ -18,12 +23,15 @@ struct node {
   ~node();
 };
 
+//graph class
 class graph {
 private:
+//vector of nodess
   vector<node*> nodes;
   int getIndex(const char* name);
 
 public:
+//functions
   void addVertex(const char* name);
   void removeVertex(const char* name);
 
