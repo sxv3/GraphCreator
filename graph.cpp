@@ -16,7 +16,7 @@ node::~node() {
   while (current != nullptr) {
     
     edge* nextEdge = current->next;
-    current = NULL;
+    current = nullptr;
     
     delete current;
     current = nextEdge;
@@ -25,7 +25,7 @@ node::~node() {
 
 graph::~graph() {
   for (int i = 0; i < nodes.size(); i++) {
-    nodes[i] = NULL;    
+    nodes[i] = nullptr;    
     delete nodes[i];
   }
   
@@ -83,7 +83,7 @@ void graph::removeVertex(const char* name) {
           }
 
           current = current->next;
-          toDelete = NULL;
+          toDelete = nullptr;
           delete toDelete;
         } else {
           
@@ -110,3 +110,62 @@ void graph::removeVertex(const char* name) {
     }
   }
 }
+
+void graph::addEdge(const char* from, const char* to, int weight) {
+  
+  int fIndex = getIndex(from);
+  int tIndex = getIndex(to);
+
+  if (fIndex == -1 || tIndex == -1) {
+    cout << "vertices not found" << endl;
+    return;
+  }
+
+  edge* current = nodes[fIndex]->head;
+  while (current != nullptr) {
+    if (current->toIndex == tIndex) {
+      current->weight = weight;
+      return;
+    }
+    
+    current = current->next;
+  }
+
+  edge* newEdge = new edge(tIndex, weight, nodes[fIndex]->head);
+  nodes[fIndex]->head = newEdge;
+}
+
+void graph::removeEdge(const char* from, const char* to) {
+  int fIndex = getIndex(from);
+  int tIndex = getIndex(to);
+
+  if (fIndex == -1 || tIndex == -1) {
+    cout << "vertices not found" << endl;
+    return;
+  }
+
+  edge* current = nodes[fIndex]->head;
+  edge* prevEdge = nullptr;
+
+  while (current != nullptr) {
+    if (current->toIndex == tIndex) {
+      if (prevEdge == nullptr) {
+        nodes[fIndex]->head = current->next;
+      } else {
+        prevEdge->next = current->next;
+      }
+      
+      delete current;
+      return;
+    }
+    
+    prevEdge = current;
+    current = current->next;
+  }
+  cout << "no edge found" << endl;
+}
+
+
+
+
+
