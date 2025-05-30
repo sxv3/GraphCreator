@@ -184,6 +184,91 @@ void graph::printAdjacencyList() {
   }
 }
 
+void graph::shortestPath(const char* from, const char* to) {
+  int start = getIndex(from);
+  int end = getIndex(to);
+
+  if (start == -1 || end == -1) {
+    cout << "vertices not found" << endl;
+    return;
+  }
+
+  const int verylargenumber = 9999999;
+  
+  int size = nodes.size();
+  int* dist = new int[size];
+  int* prev = new int[size];
+  bool* visited = new bool[size];
+
+  for (int i = 0; i < size; ++i) {
+    dist[i] = verylargenumber;
+    prev[i] = -1;
+    visited[i] = false;
+  }
+
+  dist[start] = 0;
+
+  for (int count = 0; count < size; ++count) {
+    int minDist = verylargenumber;
+    int u = -1;
+
+    for (int i = 0; i < size; ++i) {
+      if (!visited[i] && dist[i] < minDist) {
+        minDist = dist[i];
+        u = i;
+      }
+    }
+
+    if (u == -1) {
+      break;
+    }
+
+    visited[u] = true;
+    edge* current = nodes[u]->head;
+      
+    while (current != nullptr) {
+      int v = current->toIndex;
+      int w = current->weight;
+        
+      if (dist[u] + w < dist[v]) {
+        dist[v] = dist[u] + w;
+        prev[v] = u;
+      }
+        
+      current = current->next;
+    }
+  }
+
+  if (dist[end] == verylargenumber) {
+    cout << "there is no path" << endl;
+  } else {
+    cout << "shortest path takes: " << dist[end] << endl;
+    cout << "path: ";
+
+    int path[100];
+    int len = 0;
+      
+    for (int v = end; v != -1; v = prev[v]) {
+      path[len++] = v;
+    }
+
+    for (int i = len - 1; i >= 0; --i) {
+      cout << nodes[path[i]]->label;
+        
+      if (i > 0) {
+        cout << "->";
+      }
+        
+    }
+    cout << endl;
+  }
+
+  delete[] dist;
+  delete[] prev;
+  delete[] visited;
+}
+
+
 
 
 
