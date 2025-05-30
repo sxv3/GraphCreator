@@ -24,8 +24,8 @@ private:
   int getIndex(const char* name);
 
 public:
-  void addVertex(const char* label);
-  void removeVertex(const char* label);
+  void addVertex(const char* name);
+  void removeVertex(const char* name);
 
   void addEdge(const char* from, const char* to, int weight);
   void removeEdge(const char* from, const char* to);
