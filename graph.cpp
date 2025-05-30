@@ -56,3 +56,57 @@ void graph::addVertex(const char* name) {
   node* newNode = new node(lab);
   nodes.push_back(newNode);
 }
+
+void graph::removeVertex(const char* name) {
+  int index = getIndex(name);
+  
+  if (index == -1) {
+    cout << "vertex not found" << endl;
+    return;
+  }
+  
+  for (int i = 0; i < nodes.size(); i++) {
+    
+    if (i != index) {
+      edge* current = nodes[i]->head;
+      edge* prevEdge = nullptr;
+      
+      while (current != nullptr) {
+        if (current->toIndex == index) {
+          
+          edge* toDelete = current;
+          
+          if (prevEdge == nullptr) {
+            nodes[i]->head = current->next;
+          } else {
+            prevEdge->next = current->next;
+          }
+
+          current = current->next;
+          toDelete = NULL;
+          delete toDelete;
+        } else {
+          
+          prevEdge = current;
+          current = current->next;
+        }
+      }
+    }
+  }
+  
+  delete nodes[index];
+  nodes.erase(nodes.begin() + index);
+
+  for (int i = 0; i < nodes.size(); i++) {
+    edge* current = nodes[i]->head;
+    
+    while (current != nullptr) {
+      
+      if (current->toIndex > index) {
+        current->toIndex--;
+      }
+      
+      current = current->next;
+    }
+  }
+}
