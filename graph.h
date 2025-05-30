@@ -21,7 +21,7 @@ struct node {
 class graph {
 private:
   vector<node*> nodes;
-  int getIndex(const char* label);
+  int getIndex(const char* name);
 
 public:
   void addVertex(const char* label);
