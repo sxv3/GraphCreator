@@ -31,8 +31,8 @@ public:
   void removeEdge(const char* from, const char* to);
 
   void printAdjacencyList();
-   void shortestPath(const char* from, const char* to);
-    ~graph();
+  void shortestPath(const char* from, const char* to);
+  ~graph();
 
 };
 
