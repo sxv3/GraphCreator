@@ -165,6 +165,20 @@ void graph::removeEdge(const char* from, const char* to) {
   cout << "no edge found" << endl;
 }
 
+void graph::printAdjacencyList() {
+  for (int i = 0; i < nodes.size(); i++) {
+    
+    cout << nodes[i]->label << ": ";
+    edge* current = nodes[i]->head;
+    
+    while (current != nullptr) {
+      cout << "(" << nodes[current->toIndex]->label << ", " << current->weight << ") ";
+      current = current->next;
+    }
+    
+    cout << endl;
+  }
+}
 
 
 
