@@ -20,3 +20,12 @@ node::~node() {
     current = nextEdge;
   }
 }
+
+graph::~graph() {
+  
+  for (int i = 0; i < nodes.size(); i++) {
+    nodes[i] = NULL;    
+    delete nodes[i];
+  }
+  nodes.clear();
+}
