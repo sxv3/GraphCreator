@@ -14,7 +14,7 @@ struct node {
   char label[20];
   edge* head;
 
-  node(const char* label);
+  node(const char* name);
   ~node();
 };
 
